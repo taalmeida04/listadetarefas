@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 export default function App() {
+ const tarefas =[
+{id: "1",titulo: "Aprender Git"},
+{id: "2",titulo: "Aprender a fazer commit"},
+{id: "3",titulo: "Aprender utilizar o Github"},
+{id: "4",titulo: "Criar um novo commit"},
+
+]
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <View style = {styles.container1}>
+     <Text style = {styles.titulo} > Lista de tarefas</Text>
+
+     <FlatList
+      data={tarefas}
+      keyExtractor={(item)=>item.id}
+      renderItem={({item})=>(
+        <Text style = {styles.item}>{item.titulo}</Text>
+      )}
+
+
+     />
+     </View>
+  
+  ) ;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+   container1:  {
+    flex:1,
+     backgroundColor: '#0f172a'
+   },
+   titulo: { 
+    fontSize:20,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom:20
+
+   },
+   item:{
+    padding:15,
+    marginTop:10,
+    backgroundColor:'#ADD8E6',
+    borderRadius:5
+   }
+  }
+);
