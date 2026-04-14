@@ -1,72 +1,87 @@
-
-import { StyleSheet, Text, View, FlatList, TouchableOpacity,TextInput,} from 'react-native';
-import {useState} from 'react';
-
-
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, } from 'react-native';
+import { useState } from 'react';
 
 export default function App() {
+
+  const [task,setTask] = useState('')
+
   const [tarefas,setTarefas] = useState([
-    {id:'1', titulo:'Estudar Git'},
-    {id:'2', titulo:'Fazeer commit'},
-    {id:'3', titulo:'Subir para o git hub'},
-  
+    {id:"1",titulo:"aprender Git"},
+    {id:"2",titulo:"aprender fazer commit"},
+    {id:"3",titulo:"aprender utilizar GitHub"},
+    {id:"4",titulo:"Criar um novo commit"},
   ])
-  const[novaTarefa,setnovaTarefa] = useState('');
-   function addTarefa(){
-    const task = [{
+
+
+
+  function addTarefas(){
+
+    const novaTarefa = {
       id : String(Date.now()),
-      titulo : novaTarefa
-   }]
-   }
+      titulo : task
+    };
+
+   setTarefas([...tarefas,novaTarefa]);
+   setTask("")
+  
+
+  }
 
   return (
-    <View style={styles.container1}>
-      <Text style={styles.titulo} > Lista de tarefas</Text>
+    <View style={styles.container}>
 
-      <FlatList
-        data={tarefas}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={styles.item}>{novaTarefa}</Text>
-        )}
+      <Text style={styles.titulo}>Lista de tarefas</Text>
+      
+ 
 
-        />
-      <TextInput
-        style={styles.input}
-        value={novaTarefa}
-        onChangeText={ (texto)=> setnovaTarefa(texto)}
-        placeholder="Digite uma tarefa"
-        textAlign='center'
-      />
+   <FlatList
+   data={tarefas}
+   keyExtractor={(item)=>item.id}
+   renderItem={({item})=>(
+    <text style={styles.items}>{item.titulo}</text>
 
-    
-      <TouchableOpacity style={styles.btnAdicionar}>
-        <Text >Adicionar Tarefa</Text>
-      </TouchableOpacity>
+   )}
+
+   
+   
+   />
+   <TextInput 
+   style={styles.input}
+   value={task}
+   onChangeText= { (texto)=> setTask(texto) }
+   placeholder="Digite uma tarefa"
+   textAlign='center'
+   />
+
+   <TouchableOpacity onPress={addTarefas} style={styles.btnAdicionar}>
+    <Text>Adicionar Tarefa</Text>
+   </TouchableOpacity>
     </View>
-
   );
 }
 
+// Estilos utilizando StyleSheet.create para melhor performance
 const styles = StyleSheet.create({
-  container1: {
+  container: {
     flex: 1,
     backgroundColor: '#0f172a'
+
   },
-  titulo: {
+  titulo:{
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 20
 
   },
-  item: {
+  items:{
     padding: 15,
     marginTop: 10,
     backgroundColor: '#808080',
     borderRadius: 5
+
   },
-  btnAdicionar: {
+  btnAdicionar:{
     width: "90%",
     backgroundColor: "#6495ED",
     margin: 15,
@@ -77,16 +92,17 @@ const styles = StyleSheet.create({
 
   },
   input:{
-    borderWidth:1,
-    width:"90%",
-    margin:15,
+    borderWidth: 1,
+    width: "90%",
+    margin: 15,
     borderColor: "#ccc",
     padding: 10,
     marginBottom: 10,
-    borderRadius:5,
-    backgroundColor:'white',
-    textAlign:'center'
+    borderRadius: 5,
+    backgroundColor: 'white',
+    textAlign: 'center'
+
   }
 
-}
-);
+
+});
